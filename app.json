@@ -16,7 +16,7 @@
       }
     },
     "web": {
-      "bundler": "metro"
+      "build": { "babel": { "include": [ "@ui-kitten/components" ] } }
     },
     "plugins": [
       "expo-router"
