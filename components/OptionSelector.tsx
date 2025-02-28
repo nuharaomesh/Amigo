@@ -21,7 +21,7 @@ export default function OptionSelector() {
 
     const [selectedIndex, setSelectedIndex] = React.useState<IndexPath>(new IndexPath(0));
   const renderOption = (title: string): React.ReactElement => (
-    <SelectItem title={title} />
+    <SelectItem key={title} title={title} />
   );
   const displayValue = data[selectedIndex.row];
 
