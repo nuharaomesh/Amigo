@@ -9,13 +9,17 @@ import {
 import { ScrollView, StyleSheet, View } from "react-native";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/store/store";
+import { saveTransaction } from "@/reducers/transaction-slice";
+import Transaction from "@/models/Transaction";
 
 export default function FinanceModal(props) {
-  const [value, setValue] = useState("");
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("");
   const [note, setNote] = useState("");
   const [type, setType] = useState(0); // 0 = Income, 1 = Expense
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleAdd = () => {
     console.log({
@@ -24,6 +28,9 @@ export default function FinanceModal(props) {
       type: type === 0 ? "Income" : "Expense",
       note,
     });
+    const existType = type === 0 ? "INCOME" : "EXPENSE";
+    const tr: Transaction = new Transaction("USER:1740739794345-qzmy7nq8s", amount, category, existType, note);
+    dispatch(saveTransaction(tr));
     props.setVisible(false);
   };
   return (
@@ -108,7 +115,7 @@ const style = StyleSheet.create({
     borderWidth: 0,
     display: "flex",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   icon: {
     width: 32,
